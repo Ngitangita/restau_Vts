@@ -9,7 +9,7 @@ type PropsType = {
 
 
 type OperationDetail = {
-  id: number;
+  ingredienId: number;
   ingredientName: string;
   operations: any[]
 }
