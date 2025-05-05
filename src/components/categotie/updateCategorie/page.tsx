@@ -1,11 +1,11 @@
-import { CategoriesType } from "@/lib/types";
+import { Types } from "@/lib/types";
 import { Dispatch, SetStateAction } from "react";
 
 type PropsType = { 
     onSave: () => void; 
     onCancel: () => void; 
-    setCategoryToEdit: Dispatch<SetStateAction<CategoriesType | null>>; 
-    categoryToEdit: CategoriesType | null };
+    setCategoryToEdit: Dispatch<SetStateAction<Types | null>>; 
+    categoryToEdit: Types | null };
 
 const EditModal = ({
   onSave,

@@ -55,11 +55,23 @@ function CreateUnit({ isModalOpen, setIsModalOpen, onCreate }: PropsType) {
 
   return (
     <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
-      <div className="p-6 rounded-md shadow-md w-[90%] sm:w-[400px] md:w-[500px] bg-gray-800">
-        <h2 className="text-xl mb-4">Créer une nouvelle unité</h2>
-        <form onSubmit={handleSubmitUnit(onSubmitUnit)}>
+      <div className="rounded-md shadow-md w-[90%] sm:w-[400px] md:w-[500px] bg-gray-800">
+        <div className="flex flex-row justify-between items-center">
+          <h2 className="text-xl pl-8 pt-8 pb-4">Créer une nouvelle unité</h2>
+          <span
+            className="hover:bg-red-500 px-5 flex justify-center items-center w-[40px]
+                            relative bottom-4 text-[30px] hover:text-white cursor-pointer"
+            onClick={() => setIsModalOpen(false)}
+          >
+            x
+          </span>
+        </div>
+        <form onSubmit={handleSubmitUnit(onSubmitUnit)} className="p-6">
           <div className="mb-4">
-            <label htmlFor="unitName" className="block text-sm font-medium text-start">
+            <label
+              htmlFor="unitName"
+              className="block text-sm font-medium text-start"
+            >
               Nom de l&apos;unité
             </label>
             <input
@@ -76,7 +88,10 @@ function CreateUnit({ isModalOpen, setIsModalOpen, onCreate }: PropsType) {
           </div>
 
           <div className="mb-4">
-            <label htmlFor="abbreviation" className="block text-sm font-medium text-start">
+            <label
+              htmlFor="abbreviation"
+              className="block text-sm font-medium text-start"
+            >
               Abréviation
             </label>
             <input
@@ -97,7 +112,7 @@ function CreateUnit({ isModalOpen, setIsModalOpen, onCreate }: PropsType) {
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-               className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 
+              className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 
             focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 cursor-pointer"
             >
               Annuler

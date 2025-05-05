@@ -114,7 +114,7 @@ function UnitsList() {
     <div>
       <div>
         <button
-          className="mb-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 ml-2"
+          className="mb-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 ml-2 cursor-pointer"
           onClick={toggleModal}
         >
           Créer un unité
@@ -151,13 +151,13 @@ function UnitsList() {
                   </td>
                   <td className="py-2 px-4 flex flex-row gap-2 justify-center  border border-gray-500">
                     <button
-                      className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600"
+                      className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600 cursor-pointer"
                       onClick={() => handleEdit(unit)}
                     >
                       <FaRegEdit />
                     </button>
                     <button
-                      className="bg-red-500 text-white rounded p-2 hover:bg-red-600"
+                      className="bg-red-500 text-white rounded p-2 hover:bg-red-600 cursor-pointer"
                       onClick={() => confirmDelete(unit.id)}
                     >
                       <MdDelete />
@@ -176,11 +176,11 @@ function UnitsList() {
       />
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
-          <div className=" p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800">
-            <p className="mb-6">
-              Êtes-vous sûr de vouloir supprimer l&apos;unité{" "}
-              {unitToDelete?.name} ?
-            </p>
+          <div className="p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800">
+              <p className="mb-6 p-6">
+                Êtes-vous sûr de vouloir supprimer l&apos;unité{" "}
+                {unitToDelete?.name} ?
+              </p>
             <div className="flex justify-between">
               <button
                 className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 
@@ -202,43 +202,55 @@ function UnitsList() {
 
       {showEditModal && (
         <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
-          <div className=" p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800 flex flex-col gap-3">
-            <h2 className="text-lg font-semibold mb-4">
-              Modifier l&apos;unité
-            </h2>
-            <input
-              type="text"
-              value={unitsList.name}
-              name="name"
-              onChange={onChangeUnits}
-              placeholder="Nom de l'unité"
-              className="mt-1 block w-full px-4 py-2 border border-gray-700 rounded-md shadow-sm
-             focus:ring-blue-900 focus:border-blue-900 outline-0"
-            />
-            <input
-              type="text"
-              value={unitsList.abbreviation}
-              name="abbreviantion"
-              onChange={onChangeUnits}
-              placeholder="Abréviation de l'unité"
-              className="mt-1 block w-full px-4 py-2 border border-gray-700 rounded-md shadow-sm
-             focus:ring-blue-900 focus:border-blue-900 outline-0"
-            />
-            <div className="flex justify-between">
-              <button
-                className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 
-            focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 cursor-pointer"
+          <div className="rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800 flex flex-col gap-3">
+            <div className="flex flex-row justify-between items-center">
+              <h2 className="text-xl pl-8 pt-8 pb-4"> Modifier l&apos;unité</h2>
+              <span
+                className="hover:bg-red-500 px-5 flex justify-center items-center w-[40px]
+                            relative bottom-4 text-[30px] hover:text-white cursor-pointer"
                 onClick={() => setShowEditModal(false)}
               >
-                Annuler
-              </button>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={handleUpdateUnit}
-              >
-                Enregistrer
-              </button>
+                x
+              </span>
             </div>
+            <form
+              onSubmit={handleUpdateUnit}
+              className="p-6 flex flex-col gap-3"
+            >
+              <input
+                type="text"
+                value={unitsList.name}
+                name="name"
+                onChange={onChangeUnits}
+                placeholder="Nom de l'unité"
+                className="mt-1 block w-full px-4 py-2 border border-gray-700 rounded-md shadow-sm
+             focus:ring-blue-900 focus:border-blue-900 outline-0"
+              />
+              <input
+                type="text"
+                value={unitsList.abbreviation}
+                name="abbreviantion"
+                onChange={onChangeUnits}
+                placeholder="Abréviation de l'unité"
+                className="mt-1 block w-full px-4 py-2 border border-gray-700 rounded-md shadow-sm
+             focus:ring-blue-900 focus:border-blue-900 outline-0"
+              />
+              <div className="flex justify-between">
+                <button
+                  className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 
+            focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 cursor-pointer"
+                  onClick={() => setShowEditModal(false)}
+                >
+                  Annuler
+                </button>
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

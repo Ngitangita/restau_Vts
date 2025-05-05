@@ -5,22 +5,22 @@ import { MdDelete, MdInfoOutline } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import useToast from "@/lib/useToast";
 import { generatePath } from "@/lib/config";
-import { CategoriesType } from "@/lib/types";
-import CreateCategorieIngredient from "@/components/create_ingredient_groups/page";
-import UpdateCategorieIngredient from "@/components/updateCategorieIngredient/page";
+import { Types } from "@/lib/types";
+import UpdateCategorieIngredient from "@/components/ingredients/updateCategorieIngredient/page";
 import TextField from "@mui/material/TextField";
 import dayjs from "dayjs";
+import CreateCategorieIngredient from "@/components/ingredients/create_ingredient_groups/page";
 
 const CategoriesIngredientList = () => {
-  const [ingredientGroups, setIngredientGroups] = useState<CategoriesType[]>(
+  const [ingredientGroups, setIngredientGroups] = useState<Types[]>(
     []
   );
   const [error] = useState<null | string>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [categoryToDelete, setCategoryToDelete] =
-    useState<CategoriesType | null>(null);
-  const [categoryToEdit, setCategoryToEdit] = useState<CategoriesType | null>(
+    useState<Types | null>(null);
+  const [categoryToEdit, setCategoryToEdit] = useState<Types | null>(
     null
   );
   const [showEditCategoryModal, setShowEditCategoryModal] =
@@ -85,7 +85,7 @@ const CategoriesIngredientList = () => {
     setCategoryToDelete(null);
   };
 
-  const handleEditCategory = (category: CategoriesType) => {
+  const handleEditCategory = (category: Types) => {
     setCategoryToEdit(category || {});
     setShowEditCategoryModal(true);
   };

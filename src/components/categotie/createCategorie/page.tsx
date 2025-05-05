@@ -1,7 +1,7 @@
 "use client";
 import { generatePath } from "@/lib/config";
 import useToast from "@/lib/useToast";
-import { useForm } from "react-hook-form";
+import { FieldError, useForm } from "react-hook-form";
 
 type PropsType = {
   onClose: () => void;
@@ -48,7 +48,8 @@ const CreateCategories = ({ onClose, onCategoryCreated }: PropsType) => {
              focus:ring-blue-900 focus:border-blue-900 outline-0
                          ${errors.name ? "border-red-500" : "border-gray-300"}`}
         />
-        {/* {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>} */}
+        {errors.name && <p className="text-red-500 text-sm">{(errors.name as FieldError).message || "Une erreur s'est produite."}</p>}
+          
       </div>
       <div className="flex flex-row justify-between gap-4">
         <button

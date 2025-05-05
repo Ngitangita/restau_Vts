@@ -29,10 +29,12 @@ function Sidebar() {
   const menuItems: MenuItem[] = [
     { title: "Accueil", path: "/", subItems: [] },
     { title: "Menus", path: "/menus", subItems: [] },
+    { title: "Stocks", path: "/stocks", subItems: [] },
     { title: "Catégorie", path: "/categorie", subItems: [] },
     { title: "Ingredient", path: "/ingredients", subItems: [] },
     { title: "Ingredient groups", path: "/ingredient_groups", subItems: [] },
     { title: "Unité", path: "/unites", subItems: [] },
+    { title: "Tables", path: "/tables", subItems: [] },
   ];
 
   const handleChangeTitle = (title: string) => {

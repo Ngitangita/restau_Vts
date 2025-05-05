@@ -5,19 +5,19 @@ import { MdDelete, MdInfoOutline } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { generatePath } from "@/lib/config";
 import useToast from "@/lib/useToast";
-import CreateCategories from "@/components/createCategorie/page";
-import EditModal from "@/components/updateCategorie/page";
-import { CategoriesType } from "@/lib/types";
+import CreateCategories from "@/components/categotie/createCategorie/page";
+import EditModal from "@/components/categotie/updateCategorie/page";
+import { Types } from "@/lib/types";
 import dayjs from "dayjs";
 
 const CategoriesList = () => {
-  const [categories, setCategories] = useState<CategoriesType[]>([]);
+  const [categories, setCategories] = useState<Types[]>([]);
   const [error] = useState<null | string>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const [categoryToDelete, setCategoryToDelete] = useState<CategoriesType | null>(null);
+  const [categoryToDelete, setCategoryToDelete] = useState<Types | null>(null);
   const [searchTerm, setSearchTerm] = useState("")
-  const [categoryToEdit, setCategoryToEdit] = useState<CategoriesType | null>(null);
+  const [categoryToEdit, setCategoryToEdit] = useState<Types | null>(null);
   const [showEditCategoryModal, setShowEditCategoryModal] = useState<boolean>(false);
   const { showSuccess, showError } = useToast();
 
@@ -28,7 +28,7 @@ const CategoriesList = () => {
   const fetchCategories = async () => {
     try {
       const res = await fetch(generatePath("/categories/all"));
-      const data: CategoriesType[] = await res.json()
+      const data: Types[] = await res.json()
       setCategories(data);
     } catch (error: any) {
       showError(
@@ -73,7 +73,7 @@ const CategoriesList = () => {
     setCategoryToDelete(null);
   };
 
-  const handleEditCategory = (category: CategoriesType) => {
+  const handleEditCategory = (category: Types) => {
     setCategoryToEdit(category || {});
     setShowEditCategoryModal(true);
   };
@@ -234,7 +234,7 @@ const CategoriesList = () => {
 
       {showEditCategoryModal && (
          <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
-          <div className=" p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800">
+          <div className="rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800">
             <div className="flex flex-row justify-between items-center">
               <h2 className="text-xl pl-8 pt-8 pb-4">Modifier la catégorie</h2>
               <span
