@@ -5,11 +5,23 @@ import { useState, useEffect } from "react";
 import { MdAddBox } from "react-icons/md";
 import AddIngredientsToMenu from "../addIngredientsToMenu/page";
 
+type IngredientTypes = {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  ingredientName: string;
+  quantity: number;
+  unitName: string;
+};
+
+type Props = {
+  onAddIngredients: () => void | Promise<void>;
+  ingredients: IngredientTypes[];
+};
+
 const ManageMenuIngredients = ({
-  onAddIngredients,
-}: {
-  onAddIngredients: () => void;
-}) => {
+  onAddIngredients, ingredients
+}: Props) => {
   const [ingredientsList, setIngredientsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

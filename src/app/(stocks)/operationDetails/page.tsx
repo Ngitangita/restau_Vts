@@ -2,20 +2,31 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { generatePath } from "@/lib/config";
 
-type PropsType = { 
-    operationId: number
-     onClose: () => void
-    }
+type PropsType = {
+  operationId: number;
+  onClose: () => void;
+};
 
+type OperationType = {
+  id: number;
+  stockId: number;
+  type: string;
+  date: string;
+  quantity: number;
+  description: string;
+};
 
 type OperationDetail = {
   ingredienId: number;
   ingredientName: string;
-  operations: any[]
-}
+  operations: OperationType[];
+  quantity: number;
+  stockId:number;
+};
 
 const OperationStockDetails = ({ operationId, onClose }: PropsType) => {
-  const [operationDetails, setOperationDetails] = useState<null | OperationDetail>(null);
+  const [operationDetails, setOperationDetails] =
+    useState<null | OperationDetail>(null);
   const [error, setError] = useState<string | null>(null);
   const [showScrollbar, setShowScrollbar] = useState(false);
 
@@ -23,15 +34,13 @@ const OperationStockDetails = ({ operationId, onClose }: PropsType) => {
     const url = `${generatePath("/operations/details/")}${operationId}`;
     fetch(url)
       .then((res) => {
-        const json = res.json()
-        return json as Promise<OperationDetail>
+        const json = res.json();
+        return json as Promise<OperationDetail>;
       })
-      .then(data =>  {
-        console.log(data);
-        
+      .then((data) => {
         setOperationDetails(data);
         setError(null);
-      } )
+      })
       .catch((error: any) => {
         console.error(error);
         setError("Erreur lors de la récupération des détails de l'opération.");
@@ -106,6 +115,6 @@ const OperationStockDetails = ({ operationId, onClose }: PropsType) => {
       `}</style>
     </div>
   );
-}
+};
 
 export default OperationStockDetails;

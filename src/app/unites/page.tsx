@@ -128,7 +128,7 @@ function UnitsList() {
             <th className="py-2 px-4  border border-gray-500">Action</th>
           </tr>
         </thead>
-        <tbody className="darkBody">
+        <tbody>
           {units.length === 0 ? (
             <tr className="text-center">
               <td colSpan={6} className="py-4 text-gray-500">

@@ -14,6 +14,7 @@ interface Ingredient {
   id: string;
   name: string;
   stock: {
+    id: number
     quantity: number;
     createdAt: string;
     updatedAt: string;
@@ -124,12 +125,10 @@ function StockList() {
     setSelectedStock(ingredient);
     setIsModalOpen(true);
   };
-  
 
   const handleToggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  
 
   const fetchOperationDetails = (stockId: number) => {
     setSelectedOperationId(stockId);
@@ -318,22 +317,22 @@ function StockList() {
                     <td className="py-3 px-4 border border-gray-500">
                       {ingredient?.unit?.abbreviation}
                     </td>
-                    <td className="py-3 px-4 border border-gray-500">
-                      <div className="flex justify-evenly">
+                    <td className="py-3 px-4 border border-gray-500 flex justify-center text-sm sm:text-base">
                         <button
+                          className="bg-blue-500 text-white rounded p-2 hover:bg-blue-600 mr-2 cursor-pointer"
                           onClick={() => toggleModal(ingredient)}
-                          className="text-blue-500 hover:text-blue-700"
                         >
                           <MdEdit />
                         </button>
                         <button
-                          onClick={() => fetchOperationDetails(Number(ingredient.id))}
-                          className="text-green-500 hover:text-green-700"
+                          className="bg-green-500 text-white rounded p-2 hover:bg-green-600 cursor-pointer"
+                          onClick={() =>
+                            fetchOperationDetails(Number(ingredient.stock.id))
+                          }
                         >
-                          <MdInfoOutline />
+                          <MdInfoOutline /> 
                         </button>
-                      </div>
-                    </td>
+                      </td>
                   </tr>
                 ))}
               </React.Fragment>
@@ -347,20 +346,51 @@ function StockList() {
           )}
         </tbody>
       </table>
-      {selectedOperationId !== null && (
-        <OperationStockDetails
-          operationId={selectedOperationId}
-          onClose={closeDetailsModal}
-        />
+      {showDetailsModal && selectedOperationId !== null && (
+       <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
+       <div className="rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800 flex flex-col gap-3">
+         <div className="flex flex-row justify-between items-center">
+           <h2 className="text-xl pl-8 pt-8 pb-4">
+                Détails de l&rsquo;Opération
+              </h2>
+              <span
+                className="hover:bg-red-500 px-5 flex justify-center items-center w-[40px]
+                            relative bottom-4 text-[30px] hover:text-white cursor-pointer"
+                onClick={closeDetailsModal}
+              >
+                x
+              </span>
+            </div>
+            <OperationStockDetails
+              operationId={selectedOperationId}
+              onClose={closeDetailsModal}
+            />
+          </div>
+        </div>
       )}
 
-<CreateStock
-  onStockCreated={handleStockCreated}
-  createStockModale={handleToggleModal}
-  ingredientId={selectedStock ? selectedStock.id : ""}
-  ingredientName={selectedStock ? selectedStock.name : ""}
-/>
-
+      {isModalOpen && selectedStock && (
+       <div className="fixed inset-0 bg-black/80 bg-opacity-50 flex items-center justify-center z-50">
+       <div className="rounded-lg shadow-lg w-[90%] sm:w-[400px] text-center bg-gray-800 flex flex-col gap-3">
+         <div className="flex flex-row justify-between items-center">
+           <h2 className="text-xl pl-8 pt-8 pb-4">Modifier le stock</h2>
+              <span
+                className="hover:bg-red-500 px-5 flex justify-center items-center w-[40px]
+                            relative bottom-4 text-[30px] hover:text-white cursor-pointer"
+                onClick={handleToggleModal}
+              >
+                x
+              </span>
+            </div>
+            <CreateStock
+              onStockCreated={handleStockCreated}
+              createStockModale={handleToggleModal}
+              ingredientId={selectedStock ? selectedStock.id : ""}
+              ingredientName={selectedStock ? selectedStock.name : ""}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

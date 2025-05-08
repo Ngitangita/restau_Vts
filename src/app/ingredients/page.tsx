@@ -9,6 +9,7 @@ import useToast from "@/lib/useToast";
 import { generatePath } from "@/lib/config";
 import EditIngredients from "@/components/ingredients/updateIngredient/page";
 import CreateIngredient from "@/components/ingredients/createIngredients/page";
+import useFetch from "@/lib/useFetch";
 
 type Types = {
   id: number;
@@ -34,7 +35,7 @@ const IngredientList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const { showSuccess, showError } = useToast();
 
-  // const { data: units } = useFetch(() => generatePath("/units/all"));
+  const { data: units } = useFetch(() => generatePath("/units/all"));
   const [searchTerm, setSearchTerm] = useState("");
 
   const fetchIngredients = async () => {

@@ -1,17 +1,39 @@
+"use client"
+
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
 import { MdDelete, MdInfoOutline } from "react-icons/md";
 import dayjs from "dayjs";
-import ManageMenuIngredients from "@/components/menuIngredient/manageMenuIngredients/page";
 import { generatePath } from "@/lib/config";
+import { useParams } from "next/navigation";
+import Link from "next/link";
+import ManageMenuIngredients from "@/components/menuIngredient/manageMenuIngredients/page";
+
+type IngredientTypes = {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  ingredientName: string;
+  quantity: number;
+  unitName: string;
+};
+
+type MenuWithIngredients = {
+  menuId: number;
+  menuName: string;
+  menuDesc: string;
+  menuPrice: number;
+  status: string;
+  ingredients: IngredientTypes[];
+};
+
 
 function MenuWithIngredients() {
-  const { menuId } = useParams();
-  const [menu, setMenu] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [ingredientToDelete, setIngredientToDelete] = useState(null);
+  const { menuId } = useParams<{menuId: string}>();
+  const [menu, setMenu] = useState<MenuWithIngredients | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+  const [ingredientToDelete, setIngredientToDelete] = useState<IngredientTypes | null>(null);
 
   const fetchMenuWithIngredients = async () => {
     try {
@@ -68,8 +90,8 @@ function MenuWithIngredients() {
     }
   };
 
-  const confirmDelete = (ingredientId) => {
-    const ingredient = menu.ingredients.find((m) => m.id === ingredientId);
+  const confirmDelete = (ingredientId: number) => {
+    const ingredient = menu.ingredients.find((m) => m.id === ingredientId) || null;
     setIngredientToDelete(ingredient);
     setShowDeleteModal(true);
   };
@@ -90,7 +112,7 @@ function MenuWithIngredients() {
           onAddIngredients={fetchMenuWithIngredients}
           ingredients={menu.ingredients}
         />
-        <Link to="/menuList" className="text-blue-500 hover:underline">
+        <Link href="/menuList" className="text-blue-500 hover:underline">
           Rétour au menu
         </Link>
       </div>
@@ -115,7 +137,7 @@ function MenuWithIngredients() {
           {nonEmptyIngredients.length === 0 ? (
             <tr className="hover:bg-gray-100 text-center border-y z-40">
               <td
-                colSpan="6"
+                colSpan={6}
                 className="py-4 text-gray-500"
               >
                 <span className="flex flex-col justify-center items-center">

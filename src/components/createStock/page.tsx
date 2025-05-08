@@ -95,17 +95,17 @@ function CreateStock({ onStockCreated, createStockModale, ingredientId, ingredie
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="p-6">
       <div className='flex flex-row gap-20'>
         <div>
-          <label htmlFor="ingredient" className="block text-gray-700">Ingrédient</label>
+          <label htmlFor="ingredient" className="text-start">Ingrédient</label>
           <input
             id="ingredient"
             type="text"
             value={ingredientName}
             readOnly
-            className={`block w-full p-2 border rounded-md ${errors.ingredientId ? 'border-red-500' : 'border-gray-300'}`}
-          />
+            className={`w-full outline-none focus:border-blue-500 px-3 py-2 border border-gray-300 rounded
+               ${errors.ingredientId ? 'border-red-500' : 'border-gray-300'}`} />
           <input
             type="hidden"
             value={ingredientId}
@@ -115,12 +115,13 @@ function CreateStock({ onStockCreated, createStockModale, ingredientId, ingredie
         </div>
 
         <div>
-          <label htmlFor="method" className="block text-gray-700">Forme de paiement</label>
+          <label htmlFor="method" className="text-start">Forme de paiement</label>
           {methods.length > 0 ? (
             <select
               id="method"
               {...register("method")}
-              className={`block w-full p-2 border rounded-md ${errors.method ? 'border-red-500' : 'border-gray-300'}`}
+              className={`w-full outline-none focus:border-blue-500 px-3 py-2 border border-gray-300 rounded
+                 ${errors.method ? 'border-red-500' : 'border-gray-300'}`}
             >
               <option disabled value="">Sélectionner une méthode</option>
               {methods.map((item) => (
@@ -135,51 +136,55 @@ function CreateStock({ onStockCreated, createStockModale, ingredientId, ingredie
       </div>
       <div className='flex flex-row gap-20'>
         <div>
-          <label htmlFor="quantity" className="block text-gray-700">Quantité</label>
+          <label htmlFor="quantity" className="text-start">Quantité</label>
           <input
             id="quantity"
             type="text"
             {...register("quantity")}
-            className={`block w-full p-2 border rounded-md ${errors.quantity ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full outline-none focus:border-blue-500 px-3 py-2 border border-gray-300 rounded
+               ${errors.quantity ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.quantity && <p className="text-red-500">{errors.quantity.message}</p>}
         </div>
 
         <div>
-          <label htmlFor="cost" className="block text-gray-700">Prix Unitaire</label>
+          <label htmlFor="cost" className='text-start'>Prix Unitaire</label>
           <input
             id="cost"
             type="text"
             {...register("cost")}
-            className={`block w-full p-2 border rounded-md ${errors.cost ? 'border-red-500' : 'border-gray-300'}`}
+            className={`w-full outline-none focus:border-blue-500 px-3 py-2 border border-gray-300 rounded
+               ${errors.cost ? 'border-red-500' : 'border-gray-300'}`}
           />
           {errors.cost && <p className="text-red-500">{errors.cost.message}</p>}
         </div>
       </div>
 
       <div>
-        <label htmlFor="description" className="block text-gray-700">Description (facultatif)</label>
+        <label htmlFor="description" className='text-start'>Description (facultatif)</label>
         <textarea
           id="description"
           {...register("description")}
-          className={`block w-full p-2 border rounded-md ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
+          className={`w-full outline-none focus:border-blue-500 px-3 py-2 border border-gray-300 rounded
+             ${errors.description ? 'border-red-500' : 'border-gray-300'}`}
         />
         {errors.description && <p className="text-red-500">{errors.description.message}</p>}
       </div>
 
-      <div className="mt-2 text-gray-800 font-semibold">
+      <div className="mt-2 text-gray-500 font-semibold">
         Total prix {ingredientName} {calculateTotal()} Ar
       </div>
 
-      <div className="flex flex-row gap-44">
+      <div className="flex flex-row gap-40">
         <button
           type="button"
           onClick={createStockModale}
-          className="mr-2 bg-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-400"
+                     className="py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 
+            focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 cursor-pointer"
         >
           Annuler
         </button>
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md">
+        <button type="submit"  className="bg-blue-500 text-white rounded px-4 py-2 hover:bg-blue-600 cursor-pointer">
           Soumettre
         </button>
       </div>
